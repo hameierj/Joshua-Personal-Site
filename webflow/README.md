@@ -11,3 +11,12 @@ Rebuild of the personal site artifact for Webflow.
 | `source-artifact.html` | The original artifact, for reference |
 
 Home page title: Joshua “JB” Hameier
+
+## Live build (Josh's Personal Site)
+
+- Site ID `6aee816b477be6fef8288a99`, published to https://joshs-personal-site-79260b.webflow.io
+- Assets: hero.jpg `6aee81d9a7cb164e17c743ff`, team.jpg `6aee81d9a7cb164e17c74418`
+- Home: Code Embed holding `home-embed.html`; SEO title "Joshua “JB” Hameier"
+- CMS: "Blog Posts" collection (`/blog/<slug>`) with Summary, Published Date, Cover Image, Body
+- Article template: site header embed + `.article` layout bound to the fields above
+- Writing page (`/writing`): collection list of `.blog-card` links to each article
