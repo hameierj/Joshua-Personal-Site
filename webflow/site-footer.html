@@ -1,0 +1,30 @@
+<script>
+(() => {
+if (matchMedia("(prefers-reduced-motion: reduce)").matches) document.documentElement.classList.add("static");
+
+/* arcs: partial circles about one off-canvas centre */
+const arcPath = (cx, cy, r, a1, a2) => {
+  const p = (a) => [cx + r * Math.cos(a * Math.PI / 180), cy + r * Math.sin(a * Math.PI / 180)];
+  const [x1, y1] = p(a1), [x2, y2] = p(a2);
+  return `M ${x1.toFixed(1)} ${y1.toFixed(1)} A ${r} ${r} 0 0 1 ${x2.toFixed(1)} ${y2.toFixed(1)}`;
+};
+const fill = (id, cx, cy, radii, a1, a2) => {
+  document.getElementById(id).innerHTML = radii.map((r) => `<path pathLength="1" d="${arcPath(cx, cy, r, a1, a2)}"/>`).join("");
+};
+if (document.getElementById("hero-arcs")) fill("hero-arcs", 300, 1500, [1010, 1090, 1170], 196, 344);
+if (document.getElementById("close-arcs")) fill("close-arcs", 300, 1500, [1010, 1090, 1170], 196, 344);
+
+/* hero: start the load sequence once the display face is ready (or soon after) */
+const go = () => document.body.classList.add("go");
+if (document.fonts && document.fonts.load) {
+  Promise.race([document.fonts.load('300 1em "Fraunces"').then(() => document.fonts.ready), new Promise((r) => setTimeout(r, 1400))]).then(go, go);
+} else setTimeout(go, 300);
+
+/* header switches to dark type while the ivory section is under it */
+const op = document.getElementById("operator");
+if (op) {
+const chromeCheck = () => { const r = op.getBoundingClientRect(); document.body.classList.toggle("on-ivory", r.top < 40 && r.bottom > 40); };
+addEventListener("scroll", chromeCheck, { passive: true }); addEventListener("resize", chromeCheck); chromeCheck();
+}
+})();
+</script>
